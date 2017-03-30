@@ -1,0 +1,301 @@
+@import url(//fonts.googleapis.com/earlyaccess/cwtexming.css);
+
+/* rwd */
+
+@media screen and (max-width: 800px) {
+    .left,
+    .right {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .bottom li {
+        font-size: 20px;
+    }
+    img {
+        width: 50%;
+    }
+    textarea {
+        width: 70%;
+    }
+    #submit {
+        margin-left: 35%;
+    }
+    #demo {
+        margin-left: 20%;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Slabo 27px', 'cwTeXMing', 微軟正黑體, serif;
+    text-align: left;
+    /*   font-size: 16px; */
+    /*   border: 1px solid black; */
+    line-height: 25px;
+    letter-spacing: 0.1em;
+}
+
+p {
+    line-height: 25px;
+    letter-spacing: 0.1em;
+}
+
+h1 {
+    padding: 10px 0;
+    line-height: 40px;
+    letter-spacing: 0.1em;
+}
+
+h2 {
+    line-height: 40px;
+    letter-spacing: 0.1em;
+}
+
+h3 {
+    padding: 3px;
+    line-height: 20px;
+    letter-spacing: 0.1em;
+}
+
+hr {
+    margin: 30px 100px;
+    border: dotted 2px rgba(214, 59, 32, 0.8)
+}
+
+table,
+th,
+td {
+    border: 2px solid black;
+    border-style: solid;
+    border-collapse: collapse;
+    padding: 5px;
+    margin: 5px;
+    /*   border-spacing: 10px; */
+    border-color: #1faaba;
+    text-align: right;
+}
+
+a {
+    text-decoration: none;
+    color: #1faaba;
+}
+
+a:hover {
+    color: #b5371e;
+}
+
+a:active {
+    color: #126620;
+}
+
+input {
+    margin: 15px 0px;
+}
+
+
+/* div */
+
+.container {
+    width: 100%;
+    text-align: left;
+    max-width: 1024px;
+    margin: auto;
+    background-color: #eaedf2;
+}
+
+.all {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 1em;
+}
+
+.left {
+    width: 65%;
+    padding: 40px;
+}
+
+.right {
+    vertical-align: top;
+    width: 34%;
+    padding: 40px;
+}
+
+.bottom {
+    width: 100%;
+    padding: 0px 0px 70px 70px;
+    border: 2px dotted black;
+    background-color: #e5fcf9;
+    /*   margin: 0px -100px -100px 40px; */
+}
+
+.author {
+    position: fixed;
+    bottom: 0%;
+    left: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1faaba;
+    background-color: rgba(56, 60, 63, 0.1);
+}
+
+
+/* element */
+
+.navbar {
+    display: inline-block;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0px 0px 0px 20px;
+}
+
+.paragraph {
+    display: inline-block;
+}
+
+.subCap {
+    padding-top: 7px;
+    padding-bottom: 10px;
+}
+
+.points {
+    color: rgba(214, 59, 32, 0.8)
+}
+
+.ref {
+    width: 80%;
+    /*   display: inline-block; */
+}
+
+.ad_pic {
+    width: 100%;
+}
+
+#listTop {
+    padding: 35px 0px 0px 0px;
+    vertical-align: top;
+}
+
+#ccLogo {
+    padding: 20px 0px 0px 20px;
+}
+
+#caption {
+    cursor: pointer;
+}
+
+#spot_pic {
+    padding: 20px;
+}
+
+#first {
+    font-size: 2em;
+    padding: 5px;
+}
+
+#first:hover {
+    font-size: 3em;
+    padding: 5px;
+    background-color: #aaefe7;
+}
+
+#step_1 {
+    font-weight: 700;
+    opacity: 0.7
+}
+
+#step_1:hover {
+    font-weight: 700;
+    font-style: italic;
+    color: #896129;
+    opacity: 0.7;
+}
+
+#step_2 {
+    font-weight: 900;
+    opacity: 0.9
+}
+
+#step_2:hover {
+    font-weight: 900;
+    font-style: italic;
+    color: #33b731;
+    opacity: 0.9
+}
+
+#articles {
+    margin-bottom: 10px;
+}
+
+
+/* hw2 */
+
+.function {
+    background-color: rgba(1, 1, 1, 0);
+    border: 2px solid #1faaba;
+    border-radius: 30px;
+    color: #1faaba;
+    padding: 5px 20px;
+    font-size: 20px;
+}
+
+.function:hover {
+    background-color: #1faaba;
+    color: #eaedf2;
+    transition: 0.4s;
+}
+
+#smaller:hover {
+    background-color: red;
+    border: 2px solid red;
+    color: #eaedf2;
+    transition: 0.2s;
+}
+
+#larger:hover {
+    background-color: #20c928;
+    border: 2px solid #20c928;
+    color: #eaedf2;
+    transition: 0.2s;
+}
+
+
+/* hw3 */
+
+form {
+    margin-left: -30px
+}
+
+textarea {
+    border-radius: 30%;
+    position: relative;
+}
+
+
+/*#submit {
+    margin-left: 140px;
+}*/
+
+#demo {
+    margin: auto;
+}
+
+#user-pic {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin-bottom: -15px;
+    margin-left: -30px;
+    padding-left: -10px;
+    margin-right: -10px;
+    padding-right: 0px;
+}
