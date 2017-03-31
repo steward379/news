@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Storage - 上傳檔案</title>
+    <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyACjrrus1whx3B6rY5wYPP7gzPO0hKIlbU",
+            authDomain: "storage-89662.firebaseapp.com",
+            databaseURL: "https://storage-89662.firebaseio.com",
+            storageBucket: "storage-89662.appspot.com",
+            messagingSenderId: "941971932303"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+
+<body>
+    <div>
+        <header>
+            <h3>Firebase Cloud Storage upload demo</h3>
+        </header>
+
+        <main>
+            <div>
+                <h6> 你的意見：</h6>
+                <input type="text" id="posts" name="text"><br>
+                <input type="submit" id="submit" value="Submit">
+                <p id="demo">網址將顯示在此行</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        var provider = new firebase.auth.GoogleAuthProvider();
+
+        firebase.auth().signInWithPopup(provider).then(function(login) {
+            var token = login.credential.accessToken;
+            var user = login.user;
+            var storageRef = firebase.storage().ref();
+            // 儲存資料
+            var posts = document.getElementById('posts');
+            var submit = document.getElementById('submit');
+
+            submit.addEventListener('click', function() {
+                var uploadTask = storageRef.child('posts/' + user.displayName + '.txt');
+
+                uploadTask.putString(posts.value).then(function(snapshot) {
+                    console.log('留言已送出!');
+                    console.log(uploadTask);
+                    uploadTask.getDownloadURL().then(function(url) {
+                        console.log('網址在： ', url);
+                        document.getElementById('demo').innerHTML = "網址在： " + url;
+                    });
+                    // var downloadURL = posts.snapshot.downloadURL;
+                    // console.log('你的網址在' + downloadURL);
+                    // document.getElementById('demo').innerHTML = downloadURL;
+                }, function(error) {
+                    console.log('留言送不出去');
+                }, function() {
+
+                    // var downloadURL = posts.snapshot.downloadURL;
+                    // console.log('你的網址在' + downloadURL);
+                });
+            }, false);
+        }).catch(function(err) {
+            var errCode = err.code;
+            var errMessage = err.message;
+            console.log(errCode + errMessage);
+            var email = err.email;
+            var credential = err.credential;
+        });
+    </script>
+</body>

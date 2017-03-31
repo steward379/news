@@ -16,7 +16,6 @@
             };
             firebase.initializeApp(config);
         </script>
-        </script>
         <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
 
@@ -26,8 +25,9 @@
     <body>
         <div class="container">
             <div class="all topping">
-                <img src="http://dvqlxo2m2q99q.cloudfront.net/000_clients/54715/547151599cqqs.png" alt="cc_logo" width="50px" class="navbar" id="ccLogo">
+
                 <ul class="navbar" id="listTop">
+                    <img class="navbar" id="ccLogo" src="http://i.imgur.com/TKCmHq7.png" alt="cc_logo" width="50px">
                     <li class="btn"><a href="#subCaption_1">Spot.Us 的做法</a></li>
                     <li class="btn"><a href="#subCaption_2">以民為本微經濟 </a></li>
                     <li class="btn"><a href="#subCaption_3">仍待探討的議題</a></li>
@@ -46,7 +46,9 @@
             </div>
             <div class="all left">
                 <div id="top" class="title">
-                    <h1 id="caption"><a href="http://creativecommons.tw/blog/20100414">微型投資自營模式：以 Spot.Us 新聞報導媒合平台為例</a></h1>
+                    <a id="Title" href="http://creativecommons.tw/blog/20100414">
+                        <h1 id="bigTitle">微型投資自營模式：以 Spot.Us 新聞報導媒合平台為例</h1>
+                    </a>
                     <h3 id="date">2010-04-14</h3>
                     <h3 id="name">周文茵</h3>
                     <h6> &nbsp;註：按下標題連結為來源網</h6>
@@ -89,6 +91,7 @@
                 <a href="http://abig99.pixnet.net/blog/post/35290675-【365-34】別人眼中的xxx"><img src="https://firebasestorage.googleapis.com/v0/b/storage-89662.appspot.com/o/typeface.png?alt=media&token=5ca8dfae-9567-40e2-810a-54600848ab66" alt="typejoke" class="ad_pic"></a>
             </div>
             <div id="isBottom" class="all bottom">
+                <br>
                 <h1 id="articles"><a href="#isBottom">相關文章</a></h1>
                 <ol type="I" class="ref">
                     <li><a href="http://creativecommons.tw/blog/20120807-1"> OPEN 的力量：新聞傳播 </a></li>
@@ -100,7 +103,7 @@
                     <h3> 我要留言 </h3><br>
                     <textarea id="posts" class="function" name="text" rows="5" cols="30"></textarea>
                     <br>
-                    <input type="submit" class="function" id="submit" value="送出～"><br>
+                    <input id="submit" type="button" class="function" value="送出"><br>
                     <a id="go" href="">
                         <span id="demo">網址將顯示在此行</span>
                     </a>
@@ -113,67 +116,97 @@
         <script>
             var login = document.getElementById('login');
             var logout = document.getElementById('logout');
+
             var userPic = document.getElementById('user-pic');
             var userName = document.getElementById('user-name');
 
+            var demo = document.getElementById('demo');
+            var go = document.getElementById('go');
+
+            var posts = document.getElementById('posts');
+            var submit = document.getElementById('submit');
+
             login.addEventListener('click', function() {
+
                 var provider = new firebase.auth.GoogleAuthProvider();
 
                 firebase.auth().signInWithPopup(provider).then(function(coming) {
-                    var person = coming.user;
-                    // var token = coming.credential.accessToken;
-                    var right = person.photoURL;
-                    userPic.style.backgroundImage = 'url(' + right + ')';
-                    console.log(userPic.style.backgroundImage);
-                    userName.textContent = person.displayName;
-                    userPic.removeAttribute('hidden');
-                    userName.removeAttribute('hidden');
-                    login.setAttribute('hidden', 'true');
-                    logout.removeAttribute('hidden');
+
                     var storageRef = firebase.storage().ref();
 
-                    submit.addEventListener('click', function() {
-                        var posts = document.getElementById('posts');
-                        var submit = document.getElementById('submit');
-                        var demo = document.getElementById('demo');
-                        var go = document.getElementById('go')
-                        var uploadTask = storageRef.child('posts/' + person.displayName + '.txt');
+                    var person = coming.user;
+                    console.log(person);
 
-                        uploadTask.putString(posts.value).then(function(snapshot) {
+                    var right = person.photoURL;
+                    var name = person.displayName;
+
+                    userName.removeAttribute('hidden');
+                    userName.textContent = name;
+
+                    userPic.removeAttribute('hidden');
+                    userPic.style.backgroundImage = "url(" + " ' " + right + " ' " + ")";
+                    console.log(userPic.style.backgroundImage);
+
+                    login.setAttribute('hidden', 'true');
+                    logout.removeAttribute('hidden');
+
+                    submit.addEventListener('click', function() {
+                        var words = posts.value;
+                        // 以留言內容作檔名建構，也可避免重複留言
+                        var fileName = "";
+                        for (i = 0; i < 10; i++) {
+                            if (words[i]) {
+                                fileName += words[i];
+                            }
+                        }
+                        var uploadTask = storageRef.child(name + "-" + fileName + '.txt');
+
+                        uploadTask.putString(words).then(function(snapshot) {
+                            //確定上傳
                             console.log('留言已送出!');
-                            console.log(uploadTask);
+                            console.log(uploadTask.location);
+
+                            // var downloadURL = posts.snapshot.downloadURL;
                             uploadTask.getDownloadURL().then(function(url) {
-                                console.log('網址在： ' + url);
-                                submit.value = "謝謝你，" + person.displayName + "，可重填再送出呦";
+                                console.log('網址在： ', url);
+                                submit.value = "謝謝你，" + name + "，可重填再送出呦";
                                 submit.style.color = "white";
                                 submit.style.backgroundColor = "red";
                                 submit.style.border = "none";
                                 demo.innerHTML = "點此下載，網址為：（ " + url + " ) ";
                                 go.href = url;
                             });
-                        }, function(err) {
+                        }, function(error) {
                             console.log('留言送不出去');
                         });
+
                     }, false);
+
                 }).catch(function(err) {
                     var errCode = err.code;
                     var errMessage = err.message;
                     console.log(errCode + errMessage);
                     var email = err.email;
                     var credential = err.credential;
-                    console.log(email + credential);
                 });
             });
+
             logout.addEventListener('click', function() {
-                logout.setAttribute('hidden', 'true');
-                login.removeAttribute('hidden');
-                userName.setAttribute('hidden', 'true');
-                userPic.style.backgroundImage = '';
-                userPic.setAttribute('hidden', 'true');
+
                 firebase.auth().signOut();
+                userName.setAttribute('hidden', 'true');
+                userPic.setAttribute('hidden', 'true');
+                login.removeAttribute('hidden');
+                logout.setAttribute('hidden', 'true');
+
+                // userPic.style.backgroundImage = '';
+
+                window.location.reload();
             });
         </script>
         <script src="js/btn.js"></script>
     </body>
 
     </html>
+
+    <script>
