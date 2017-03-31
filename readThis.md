@@ -30,6 +30,12 @@ https://github.com/steward379/news
 
 - js 邏輯可至 /answer.html 查看
 
+### git 使用截圖（一） 
+https://firebasestorage.googleapis.com/v0/b/prac-01-e75f6.appspot.com/o/gitThis.png?alt=media&token=11d0309b-f62a-4d37-b8bf-66e62b8d5d06
+
+### git 使用截圖（二） 
+https://firebasestorage.googleapis.com/v0/b/prac-01-e75f6.appspot.com/o/git2.png?alt=media&token=c1189fe6-7b8f-4ee5-897e-bcbcf21bb0d0
+
 
 
 
