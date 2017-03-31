@@ -3,7 +3,9 @@
 /* rwd */
 
 @media screen and (max-width: 800px) {
-    .left,
+    .left {
+        width: 100%;
+    }
     .right {
         width: 100%;
     }
@@ -110,6 +112,7 @@ input {
     display: inline-block;
     box-sizing: border-box;
     padding: 1em;
+    margin: auto;
 }
 
 .left {
