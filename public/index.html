@@ -29,7 +29,7 @@
             <div class="all topping">
 
                 <ul class="navbar" id="listTop">
-                    <img class="navbar" id="ccLogo" src="https://i.imgur.com/TKCmHq7.png" alt="cc_logo" width="50px">
+                    <img class="navbar" id="ccLogo" src="https://firebasestorage.googleapis.com/v0/b/prac-01-e75f6.appspot.com/o/8963637%40N05_r.png?alt=media&token=6a2d9842-922d-4df0-b4fa-d2e4b64e1be0" alt="cc_logo" width="50px">
                     <li class="btn"><a href="#subCaption_1">Spot.Us 的做法</a></li>
                     <li class="btn"><a href="#subCaption_2">以民為本微經濟 </a></li>
                     <li class="btn"><a href="#subCaption_3">仍待探討的議題</a></li>
@@ -57,7 +57,7 @@
                 </div>
 
                 <div id="content" class="text">
-                    <img src="http://creativecommons.tw/sites/creativecommons.tw/files/spot.us.jpg" alt="Spot.Us" id="spot_pic">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/prac-01-e75f6.appspot.com/o/spot.us.jpg?alt=media&token=243dcb18-ae39-402d-b304-92d888b2dcb9" alt="Spot.Us" id="spot_pic">
                     <p id="paragraph_1" class="paragraph" onmouseover="change(1);" onmouseout="change(5);">&nbsp;&nbsp;&#160;&#160;　<span id="first" class="paragraph"><b>你</b></span>覺得地方上有些值得調查或者應該報導的主題，卻總是被主流報導所忽略？你想做一番值得深究的專題，卻苦於無經費支持？你想要做些具有深度的報導，卻無力再聘請更多人力？你認為<b><i>新聞報導的價值不該只限於該完成品，更重要的在於它的製作與散佈的過程</i></b>⋯⋯。<br><br> &nbsp;&nbsp;&#160;&#160;　那麼，導入類似微型投資概念，目前仍以舊金山與洛杉磯為經營主力的
                         <a id="spot" href="http://www.publicradio.org/spotus/">Spot.Us</a>，將提供我們一個不一樣的想像。這個 2008 年開始的非營利實驗計畫，透過平台聚結整合讀者、報導者、報社組織的需求與資源，而藉由平台的自營設計，讓大眾可以透過自己的力量找回在地新聞的生命力。</p>
                     <h2 id="subCaption_1" class="subCap">Spot.Us 的做法</h2>
@@ -102,8 +102,8 @@
                 <br>
                 <form>
                     <h5> 請先右上角 Google 登入，勿封鎖彈出式視窗，請開啟權限再重新整理 </h5>
-                    <h3> 我要留言 </h3><br>
-                    <textarea id="posts" class="function" name="text" rows="5" cols="30"></textarea>
+                    <h3> 留⾔給我 </h3><br> <input id="commentUser" type="text" class="function" placeholder="Google 名稱"><br>
+                    <textarea id="posts" class="function" name="text" rows="5" cols="30" placeholder="留言寫在這"></textarea>
                     <br>
                     <input id="submit" type="button" class="function" value="送出"><br>
                     <a id="go" href="">
@@ -121,6 +121,7 @@
 
             var userPic = document.getElementById('user-pic');
             var userName = document.getElementById('user-name');
+            var commentUser = document.getElementById('commentUser');
 
             var demo = document.getElementById('demo');
             var go = document.getElementById('go');
@@ -137,17 +138,18 @@
                     var storageRef = firebase.storage().ref();
 
                     var person = coming.user;
-                    console.log(person);
+                    console.log('使用者資料: ' + person);
 
                     var right = person.photoURL;
                     var name = person.displayName;
 
                     userName.removeAttribute('hidden');
                     userName.textContent = name;
+                    commentUser.value = name;
 
                     userPic.removeAttribute('hidden');
                     userPic.style.backgroundImage = "url(" + " ' " + right + " ' " + ")";
-                    console.log(userPic.style.backgroundImage);
+                    console.log('使用者圖片網址: ' + userPic.style.backgroundImage);
 
                     login.setAttribute('hidden', 'true');
                     logout.removeAttribute('hidden');
@@ -162,16 +164,16 @@
                                 fileName += words[i];
                             }
                         }
-                        var uploadTask = storageRef.child(name + "-" + fileName + '.txt');
+                        var uploadTask = storageRef.child("/posts/secret-message-" + name + "-" + fileName + '.txt');
 
                         uploadTask.putString(words).then(function(snapshot) {
                             //確定上傳
                             console.log('留言已送出!');
-                            console.log(uploadTask.location);
+                            console.log('留言儲存區＆檔名: ' + uploadTask.location);
 
                             // var downloadURL = posts.snapshot.downloadURL;
                             uploadTask.getDownloadURL().then(function(url) {
-                                console.log('網址在： ', url);
+                                console.log('留言網址在： ', url);
                                 submit.value = "謝謝你，" + name + "，可重填再送出呦";
                                 submit.style.color = "white";
                                 submit.style.backgroundColor = "red";
@@ -195,12 +197,14 @@
             });
 
             logout.addEventListener('click', function() {
-
-                firebase.auth().signOut();
-
                 userPic.style.backgroundImage = '';
                 userName.setAttribute('hidden', 'true');
                 userPic.setAttribute('hidden', 'true');
+
+                firebase.auth().signOut();
+
+                commentUser.value = "";
+
                 login.removeAttribute('hidden');
                 logout.setAttribute('hidden', 'true');
 

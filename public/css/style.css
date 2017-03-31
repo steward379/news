@@ -278,8 +278,8 @@ form {
     margin-left: -30px
 }
 
-textarea {
-    border-radius: 30%;
+#posts {
+    border-radius: 25px;
     position: relative;
 }
 
