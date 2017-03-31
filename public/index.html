@@ -18,6 +18,8 @@
         </script>
         <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="bookmark" href="/favicon.ico" />
 
         <title> 這是一篇新聞 </title>
     </head>
@@ -27,7 +29,7 @@
             <div class="all topping">
 
                 <ul class="navbar" id="listTop">
-                    <img class="navbar" id="ccLogo" src="http://i.imgur.com/TKCmHq7.png" alt="cc_logo" width="50px">
+                    <img class="navbar" id="ccLogo" src="https://i.imgur.com/TKCmHq7.png" alt="cc_logo" width="50px">
                     <li class="btn"><a href="#subCaption_1">Spot.Us 的做法</a></li>
                     <li class="btn"><a href="#subCaption_2">以民為本微經濟 </a></li>
                     <li class="btn"><a href="#subCaption_3">仍待探討的議題</a></li>
@@ -151,6 +153,7 @@
                     logout.removeAttribute('hidden');
 
                     submit.addEventListener('click', function() {
+                        submit.value = "請稍待..."
                         var words = posts.value;
                         // 以留言內容作檔名建構，也可避免重複留言
                         var fileName = "";
@@ -194,12 +197,12 @@
             logout.addEventListener('click', function() {
 
                 firebase.auth().signOut();
+
+                userPic.style.backgroundImage = '';
                 userName.setAttribute('hidden', 'true');
                 userPic.setAttribute('hidden', 'true');
                 login.removeAttribute('hidden');
                 logout.setAttribute('hidden', 'true');
-
-                // userPic.style.backgroundImage = '';
 
                 window.location.reload();
             });
