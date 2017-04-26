@@ -1,4 +1,4 @@
-直接前往：https://github.com/steward379/news/public
+直接前往：https://steward379.github.io/news/public/
 本作業延續 hw1 與 hw2 之新聞頁面 
 使用 git 繳交本次作業
 
